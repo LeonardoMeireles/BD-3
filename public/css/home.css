@@ -6,6 +6,23 @@ body,h1,h2,h3,h4,h5,h6 {
     font-family: "Montserrat", sans-serif
 }
 
+.background-image{
+    padding:128px 16px;
+    background-image: url("/images/plane-sunset.jpg");
+    background-repeat: no-repeat, no-repeat;
+    background-position: -543px -209px; 
+}
+
+.home-title{
+    text-align: center !important;
+    margin: 20px!important;
+    font-size: 64px!important;
+}
+
+.button-title{
+    content: center;
+}
+
 .fa-anchor,.fa-coffee {
     font-size:200px
 }
