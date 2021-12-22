@@ -7,15 +7,17 @@ body,h1,h2,h3,h4,h5,h6 {
 }
 
 .background-image{
-    padding:128px 16px;
+    padding: 20px;
     background-image: url("/images/plane-sunset.jpg");
-    background-repeat: no-repeat, no-repeat;
-    background-position: -543px -209px; 
+    background-repeat: no-repeat;
+    width: 100%;
+    height: auto;
+    background-position: -1837px -878px; 
 }
 
 .home-title{
     text-align: center !important;
-    margin: 20px!important;
+    margin-top: 20px!important;
     font-size: 64px!important;
 }
 
@@ -25,4 +27,16 @@ body,h1,h2,h3,h4,h5,h6 {
 
 .fa-anchor,.fa-coffee {
     font-size:200px
+}
+
+#logo{
+    margin-top: 50px;
+    width: 10%;
+    height: 10%;
+}
+
+
+#logoName{
+    font-family: 'Montserrat';
+    font-weight: 700;
 }
