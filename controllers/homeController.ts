@@ -11,8 +11,26 @@ const getTabela = (req: Request , res: Response, next: NextFunction) => {
     })
 }
 
-const getForm = (req: Request , res: Response, next: NextFunction) => {
-    res.render('form')
+const getFormOptions = (req: Request , res: Response, next: NextFunction) => {
+    res.render('formOptions')
 }
 
-export { getHome, getTabela, getForm }
+const getAdd = (req: Request , res: Response, next: NextFunction) => {
+    res.render('forms/formAdd', {
+        tabela: req.params.tabela,
+    })
+}
+
+const getUpdate = (req: Request , res: Response, next: NextFunction) => {
+    res.render('forms/formUpdate', {
+        tabela: req.params.tabela,
+    })
+}
+
+const getDelete = (req: Request , res: Response, next: NextFunction) => {
+    res.render('forms/formDelete', {
+        tabela: req.params.tabela,
+    })
+}
+
+export { getHome, getTabela, getFormOptions, getAdd }
