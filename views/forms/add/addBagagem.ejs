@@ -1,0 +1,36 @@
+<div>
+    <div class="item">
+        <p>Peso</p>
+        <input type="number" name="nome" required/>
+    </div>
+    <div class="item">
+        <p>Esteira</p>
+        <input type="number" name="cpf" required/>
+    </div>
+</div>
+<div class="item">
+    <p>CPF do proprietário</p>
+    <input type="text" name="cpf" required/>
+</div>
+<div class="question">
+    <p><span class="required">Extraviada</span></p>
+    <div class="question-answer">
+      <input type="radio" value="atendente" id="radio_1" name="research" required/>
+      <label for="radio_1" class="radio" onclick="option='sim'; extraviada();"><span>Sim</span></label>
+      <input type="radio" value="piloto" id="radio_2" name="research" required/>
+      <label for="radio_2" class="radio" onclick="option='nao'; extraviada();"><span>Não</span></label>
+    </div>
+</div>
+<div id="extraviada" style="display: none;">
+    <div class="item">
+        <p>Voo</p>
+        <!-- TODO -->
+        <select required>
+            <option value="1">Voo 1</option>
+            <option value="2">Voo 2</option>
+            <option value="3">Voo 3</option>
+            <option value="4">Voo 4</option>
+            <option value="5">Voo 5</option>
+        </select>
+    </div>
+</div>

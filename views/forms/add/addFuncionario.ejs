@@ -1,0 +1,55 @@
+<div>
+    <div class="item">
+        <p>Nome</p>
+        <input type="text" name="nome" required/>
+    </div>
+    <div class="item">
+        <p>CPF</p>
+        <input type="text" name="cpf" required/>
+    </div>
+</div>
+<div class="item">
+    <p>Data de Nascimento</p>
+    <input type="date" name="dataNascimento" required/>
+    <i class="fas fa-calendar-alt"></i>
+</div>
+<div class="item">
+    <p>Telefone</p>
+    <input type="text" name="cpf" required/>
+</div>
+<div class="item">
+    <p>RG</p>
+    <input type="text" name="cpf" required/>
+</div>
+<div class="item">
+    <p>Email</p>
+    <input type="text" name="cpf" required/>
+</div>
+<div class="question">
+    <p><span class="required">Cargo</span></p>
+    <div class="question-answer">
+      <input type="radio" value="atendente" id="radio_1" name="cargo" required/>
+      <label for="radio_1" class="radio" onclick="option='atendente'; cargo();"><span>Atendente</span></label>
+      <input type="radio" value="comissário" id="radio_2" name="cargo" required/>
+      <label for="radio_2" class="radio" onclick="option='comissario'; cargo();"><span>Comissário de Bordo</span></label>
+      <input type="radio" value="piloto" id="radio_3" name="cargo" required/>
+      <label for="radio_3" class="radio" onclick="option='piloto'; cargo();"><span>Pìloto</span></label>
+    </div>
+</div>
+<div id="atendente" style="display: none;">
+    <div class="question">
+        <p><span class="required">Turno</span></p>
+        <div class="question-answer">
+          <input type="radio" value="Matutino" id="radio_4" name="turno" required/>
+          <label for="radio_4" class="radio"><span>Matutino</span></label>
+          <input type="radio" value="Vespertino" id="radio_5" name="turno" required/>
+          <label for="radio_5" class="radio"><span>Vespertino</span></label>
+          <input type="radio" value="Noturno" id="radio_6" name="turno" required/>
+          <label for="radio_6" class="radio"><span>Noturno</span></label>
+        </div>
+    </div>
+</div>
+<div class="item">
+    <p>Salário</p>
+    <input type="number" name="salário" required/>
+</div>
