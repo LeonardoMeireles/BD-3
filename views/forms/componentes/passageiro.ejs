@@ -1,0 +1,42 @@
+<div>
+    <div class="item">
+        <p>Nome</p>
+        <% if( action === 'add') { %>
+            <input type="text" name="nome" required/>
+        <% } else { %>
+            <input type="text" name="nome" value=<%= passageiro.nome %> required/>
+        <% } %>
+    </div>
+    <div class="item">
+        <p>CPF</p>
+        <% if( action === 'add') { %>
+            <input type="text" name="cpf" required/>
+        <% } else { %>
+            <input type="text" name="cpf" value=<%= passageiro.cpf %>required/>
+        <% } %>
+    </div>
+    <div class="item">
+        <p>RG</p>
+        <% if( action === 'add') { %>
+            <input type="text" name="rg" required/>
+        <% } else { %>
+            <input type="text" name="rg" value=<%= passageiro.rg %>required/>
+        <% } %>
+    </div>
+</div>
+<div class="item">
+    <p>Telefone</p>
+    <% if( action === 'add') { %>
+        <input type="text" name="telefone" required/>
+    <% } else { %>
+        <input type="text" name="telfone" value=<%= passageiro.telefone %>required/>
+    <% } %>
+</div>
+<div class="item">
+    <p>Email</p>
+    <% if( action === 'add') { %>
+        <input type="text" name="email" required/>
+    <% } else { %>
+        <input type="text" name="email" value=<%= passageiro.email %>required/>
+    <% } %>
+</div>

@@ -1,10 +1,18 @@
 <div class="item">
     <p>Nome</p>
-    <input type="text" name="nome" required/>
+    <% if( action === 'add') { %>
+        <input type="text" name="nome" required/>
+    <% } else { %>
+        <input type="text" name="nome" value=<%= companhia.nome %> required/>
+    <% } %>
 </div>
 <div class="item">
     <p>CNPJ</p>
-    <input type="number" name="CNPJ" required/>
+    <% if( action === 'add') { %>
+        <input type="number" name="cnpj" required/>
+    <% } else { %>
+        <input type="number" name="cnpj" value=<%= companhia.cnpj %> required/>
+    <% } %>
 </div>
 <div class="item">
     <p>País de Origem</p>
@@ -21,5 +29,9 @@
 </div>
 <div class="item">
     <p>Descrição</p>
-    <input type="text" name="nome"/>
+    <% if( action === 'add') { %>
+        <input type="text" name="nome"/>
+    <% } else { %>
+        <input type="text" name="nome" value=<%= companhia.descricao %>/>
+    <% } %>
 </div>

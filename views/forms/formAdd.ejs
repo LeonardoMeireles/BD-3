@@ -49,17 +49,17 @@
                 <h1 id="logoName" class="w3-jumbo">Adicionar <%= tabela %></h1>
             </header>
             <% if(tabela === 'aviao') { %>
-                <%- include('./add/addAviao.ejs') %>
+                <%- include('./componentes/aviao.ejs') %>
             <% } else if(tabela === 'companhia') { %>
-                <%- include('./add/addCompanhia.ejs') %>
+                <%- include('./componentes/companhia.ejs') %>
             <% } else if(tabela === 'funcionário') { %>
-                <%- include('./add/addFuncionario.ejs') %>
+                <%- include('./componentes/funcionario.ejs') %>
             <% } else if(tabela === 'bagagem') { %>
-                <%- include('./add/addBagagem.ejs') %>
+                <%- include('./componentes/bagagem.ejs') %>
             <% } else if(tabela === 'passageiro') { %>
-                <%- include('./add/addPassageiro.ejs') %>
+                <%- include('./componentes/passageiro.ejs') %>
             <% } else if(tabela === 'voo') { %>
-                <%- include('./add/addVoo.ejs') %>
+                <%- include('./componentes/voo.ejs') %>
             <% } %>
             <div class="btn-block">
                 <button type="submit" href="/">Send Application</button>

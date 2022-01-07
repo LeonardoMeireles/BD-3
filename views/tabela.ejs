@@ -96,6 +96,10 @@
             filterDataByParameter();
         }
 
+        function editRedirect(table, id){
+            location.replace(`/update/${table}/${id}`);
+        }
+
     </script>
     <body>
         <!-- Navbar -->
@@ -137,11 +141,13 @@
                     <% if(tableContent) { %>
                         <% for(let content of tableContent) { %>
                             <tr class="inference-row">
-                                <td> <%= content.test1 %></td>
-                                <td> <%= content.test2 %></td>
-                                <td> <%= content.test3 %></td>
-                                <td> <%= content.test4 %></td>
-                                <td> <%= content.test5 %></td>
+                                <td class="tableValue"> <%= content.test1 %></td>
+                                <td class="tableValue"> <%= content.test2 %></td>
+                                <td class="tableValue"> <%= content.test3 %></td>
+                                <td class="tableValue"> <%= content.test4 %></td>
+                                <td class="tableValue"> <%= content.test5 %></td>
+                                <td><button class="tableBtn" onclick="editRedirect('test', '123')"><i class="fa fa-edit"></i></button></td>
+                                <td><button class="tableBtn" onclick=""><i class="fa fa-trash"></i></button></td>
                             </tr>
                         <% } %>
                     <% } %>

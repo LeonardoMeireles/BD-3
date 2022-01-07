@@ -9,7 +9,7 @@ router.get('/form', getFormOptions)
 
 // Forms
 router.get('/adicionar/:tabela', getAdd)
-router.get('/update/:tabela')
+router.get('/update/:tabela/:id')
 router.get('/delete/:tabela')
 
 

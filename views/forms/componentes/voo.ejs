@@ -1,24 +1,44 @@
 <div class="item">
     <p>Partida</p>
-    <input type="date" name="bdate" required/>
+    <% if( action === 'add') { %>
+        <input type="date" name="dataPartida" required/>
+    <% } else { %>
+        <input type="date" name="dataPartida" value=<%= voo.dataPartida %>required/>
+    <% } %>
     <i class="fas fa-calendar-alt"></i>
 </div>
 <div class="item">
     <p>Chegada</p>
-    <input type="date" name="bdate" required/>
+    <% if( action === 'add') { %>
+        <input type="date" name="dataChegada" required/>
+    <% } else { %>
+        <input type="date" name="dataChegada" value=<%= voo.dataChegada %>required/>
+    <% } %>
     <i class="fas fa-calendar-alt"></i>
 </div>
 <div class="item">
     <p>Local de Partida</p>
-    <input type="number" name="CNPJ" required/>
+    <% if( action === 'add') { %>
+        <input type="number" name="localPartida" required/>
+    <% } else { %>
+        <input type="number" name="localPartida" value=<%= voo.localPartida %>required/>
+    <% } %>
 </div>
 <div class="item">
     <p>Local de Chegada</p>
-    <input type="number" name="CNPJ" required/>
+    <% if( action === 'add') { %>
+        <input type="number" name="localChegada" required/>
+    <% } else { %>
+        <input type="number" name="localChegada" value=<%= voo.localChegada %>required/>
+    <% } %>
 </div>
 <div class="item">
-    <p>CNPJ</p>
-    <input type="number" name="CNPJ" required/>
+    <p>CNPJ Companhia</p>
+    <% if( action === 'add') { %>
+        <input type="number" name="cnpjCompanhia" required/>
+    <% } else { %>
+        <input type="number" name="cnpjCompanhia" value=<%= voo.cnpjCompanhia %>required/>
+    <% } %>
 </div>
 <div class="item">
     <p>Avião utilizado</p>
