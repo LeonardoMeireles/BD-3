@@ -105,26 +105,40 @@
         <!-- Navbar -->
         <div class="w3-top">
             <div class="w3-bar w3-blue w3-card w3-left-align w3-large">
-            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-            <a href="/" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Home</a>
-            <a href="/form" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Form</a>
-            <a href="/tabela" class="w3-bar-item w3-button w3-padding-large w3-white">Tabela</a>
+                <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+                <a href="/" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Home</a>
+                <a href="/form" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Form</a>
+                <a href="/tabela" class="w3-bar-item w3-button w3-padding-large w3-white">Tabela</a>
             </div>
         
             <!-- Navbar on small screens -->
             <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-            <a href="/" class="w3-bar-item w3-button w3-padding-large">Home</a>
+                <a href="/" class="w3-bar-item w3-button w3-padding-large">Home</a>
             </div>
         </div>
         <section class="container">
             <div class="flex-container">
-                <div></div><div></div>
+                <div class="tab">
+                    <p>Filtrar por:</p>
+                    <select required id="tabela">
+                        <option value="funcionário">Funcionário</option>
+                        <option value="passageiro">Passageiro</option>
+                        <option value="bagagem">Bagagem</option>
+                        <option value="bagagemExtraviada">Bagagem Extraviada</option>
+                        <option value="voo">Voo</option>
+                        <option value="aviao">Avião</option>
+                        <option value="companhia">Companhia Aerea</option>
+                    </select>
+                </div>
                 <div class="spira-title">
                     <h1 id="title">Tabela Air Trava</h1>
                     <h2>Agilizando a sua viagem</h2>
                 </div>
                 <div>
-                    <button onclick="" class="button" style="vertical-align:middle"><span>Baixar CSV </span></button>
+                    <!-- <button onclick="" class="button" style="vertical-align:middle"><span>Baixar CSV </span></button> -->
+                </div>
+                <div>
+                    
                 </div>
             </div>
         </section>
