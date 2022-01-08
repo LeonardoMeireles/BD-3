@@ -1,0 +1,23 @@
+version: "3.1"
+
+services:
+  web:
+    image: trava-air
+    restart: always
+    ports:
+      - "80:${PORT}"
+    environment:
+      PORT: "${PORT}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    depends_on:
+      - db
+    
+  db:
+    image: postgres:alpine3.15
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    volumes:
+      - /data/trava-air-postgres:/var/lib/postgresql/data

@@ -2,14 +2,16 @@
   "dependencies": {
     "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "pg": "^8.7.1"
   },
   "name": "bd-3",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec npx ts-node ./index.ts"
+    "dev": "for e in .env*;do export $(cat $e; echo); done; nodemon --exec npx ts-node index.ts",
+    "start": "for e in .env*;do export $(cat $e; echo); done; npx ts-node index.ts"
   },
   "repository": {
     "type": "git",

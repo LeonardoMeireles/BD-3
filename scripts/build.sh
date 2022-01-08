@@ -1,0 +1,1 @@
+sudo -E docker build -t trava-air .
