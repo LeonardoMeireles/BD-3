@@ -12,9 +12,9 @@
   </head>
   <script>
       function executeAction(){
-        const action = document.getElementById('action').value;
         const tabela = document.getElementById('tabela').value;
-        window.location = action + '/' +tabela;
+        document.getElementById('tabela').value = "";
+        window.location = 'adicionar/' +tabela;
       };
   </script>
   <body>
@@ -41,16 +41,8 @@
             </header>
             <div class="test">
                 <div class="item">
-                    <p>Tipo de Ação</p>
-                    <select required id="action">
-                        <option value="adicionar">Adicionar</option>
-                        <option value="modificar">Modificar</option>
-                        <option value="deletar">Deletar</option>
-                    </select>
-                </div>
-                <div class="item">
-                    <p>Tabela desejada</p>
-                    <select required id="tabela">
+                    <select required id="tabela" onchange=executeAction()>
+                        <option value="" disabled selected>Selecione o formulário</option>
                         <option value="funcionário">Funcionário</option>
                         <option value="passageiro">Passageiro</option>
                         <option value="bagagem">Bagagem</option>
@@ -59,9 +51,6 @@
                         <option value="companhia">Companhia Aerea</option>
                     </select>
                 </div>
-            </div>
-            <div class="btn-block">
-                <button type="button" onclick=executeAction() value="submit">Executar Função</button>
             </div>
         </form>
     </div>
