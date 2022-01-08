@@ -166,6 +166,7 @@
  
  .tab {
    overflow: hidden;
+   margin-top: 30px;
  }
  
  .tab button {
