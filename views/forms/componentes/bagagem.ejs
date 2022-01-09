@@ -1,10 +1,13 @@
 <div>
+    <div class="hidden">
+        <input type="text" name="entity" value="bagagem"/>
+    </div>
     <div class="item">
         <p>Peso</p>
         <% if( action === 'add') { %>
-            <input type="number" name="nome" required/>
+            <input type="number" name="peso" required/>
         <% } else { %>
-            <input type="number" name="nome" value=<%= bagagem.peso %> required/>
+            <input type="number" name="peso" value="<%= bagagem.peso %>" required/>
         <% } %>
     </div>
     <div class="item">
@@ -17,9 +20,14 @@
     </div>
 </div>
 <div class="item">
-    <p>CPF do proprietário</p>
+    <p>Proprietário</p>
     <% if( action === 'add') { %>
-        <input type="text" name="cpf" required/>
+        <select name="cpf" required>
+            <option disabled selected>Selecione Passageiro</option>
+            <% for (passageiro of passageiros) { %>
+                <option value="<%= passageiro['cpf'] %>"> <%= `${passageiro['nome']} | ${passageiro['cpf']}` %> </option>
+            <% } %>
+        </select>
     <% } else { %>
         <input type="text" name="cpf" value=<%= bagagem.cpf %> required/>
     <% } %>
@@ -28,23 +36,21 @@
     <div class="question">
         <p><span class="required">Extraviada</span></p>
         <div class="question-answer">
-        <input type="radio" value="atendente" id="radio_1" name="research" required/>
+        <input type="radio" value="atendente" id="radio_1" required/>
         <label for="radio_1" class="radio" onclick="option='sim'; extraviada();"><span>Sim</span></label>
-        <input type="radio" value="piloto" id="radio_2" name="research" required/>
+        <input type="radio" value="piloto" id="radio_2" required/>
         <label for="radio_2" class="radio" onclick="option='nao'; extraviada();"><span>Não</span></label>
         </div>
     </div>
 <% } %>
 <div id="extraviada" style="display: none;">
     <div class="item">
-        <p>Voo</p>
-        <!-- TODO -->
-        <select required>
-            <option value="1">Voo 1</option>
-            <option value="2">Voo 2</option>
-            <option value="3">Voo 3</option>
-            <option value="4">Voo 4</option>
-            <option value="5">Voo 5</option>
+        <p>Voo em que a bagagem está</p>
+        <select name="voo" required>
+            <option disabled selected>Selecione Voo</option>
+            <% for (voo of voos) { %>
+                <option value="<%= voo['id'] %>"> <%= `${voo['id']} | ${voo['localpartida']} - ${voo['localchegada']}` %> </option>
+            <% } %>
         </select>
     </div>
 </div>

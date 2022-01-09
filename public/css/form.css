@@ -89,6 +89,10 @@ textarea {
     padding: 5px;
 }
 
+.hidden {
+    display: none;
+}
+
 .item:hover p, .item:hover i, .question:hover p, .question label:hover, input:hover::placeholder, a {
     color: #095484;
 }

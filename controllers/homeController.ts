@@ -51,6 +51,7 @@ const getAdd = async (req: Request , res: Response, next: NextFunction) => {
     const portoes = (await client.query('SELECT id FROM portao')).rows
     const portoes_livres = (await client.query('SELECT id FROM portao WHERE ocupado = false')).rows
     const guiches = (await client.query('SELECT id FROM guiche')).rows
+    const voos = (await client.query('SELECT id, localpartida, localchegada FROM voo')).rows
 
     res.render('forms/formAdd', {
         action: 'add',
@@ -63,7 +64,8 @@ const getAdd = async (req: Request , res: Response, next: NextFunction) => {
         pilotos: pilotos,
         portoes: portoes,
         portoes_livres: portoes_livres,
-        guiches: guiches
+        guiches: guiches,
+        voos: voos
     })
 }
 

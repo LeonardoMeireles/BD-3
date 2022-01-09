@@ -26,6 +26,12 @@
             document.getElementById("atendente").style.display = "none";
         }
     }
+
+    function submitForm(form){ // Submit button clicked
+            form.submitButton.disabled = true;
+            form.submitButton.value = "Aguarde...";
+            return true;
+        }
   </script>
   <body>
     <!-- Navbar -->
@@ -62,7 +68,7 @@
                 <%- include('./componentes/voo.ejs') %>
             <% } %>
             <div class="btn-block">
-                <button type="submit">Send Application</button>
+                <button type="submit" name="submitButton">Inserir</button>
             </div>
         </form>
     </div>
