@@ -1,3 +1,5 @@
+import { url } from "inspector"
+
 const { Client } = require('pg')
 
 const PASS = process.env.POSTGRES_PASSWORD
@@ -13,14 +15,8 @@ const client = new Client({
   })
 
 async function connectDatabase() {
-  await client.connect()
+    await client.connect()
 }
-
-async function reconnect() {
-  await client.end()
-  connectDatabase()
-}
-
 connectDatabase()
 
-export {client, reconnect}
+export default client
