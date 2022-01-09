@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <script>
-        const entities = ['funcionario', 'passageiro', 'bagagem', 'bagagemExtraviada', 'voo', 'aviao', 'companhia']
+        const entities = ['funcionario', 'atendente', 'piloto', 'comissariodebordo', 'passageiro', 'bagagem', 'bagagemextraviada', 'voo', 'aviao', 'companhia']
         
         function getCookie(name) {
             const value = `; ${document.cookie}`;
@@ -28,19 +28,6 @@
         }
 
         option = getCookie("table")
-
-        function dumpTable() {
-            if (option === "inference") {
-                location.replace(`${window.location.origin}/dump/inference`);
-            } else {
-                location.replace(`${window.location.origin}/dump/audio`);
-            }
-        }
-
-        function choose() {
-            chooseTable()
-            chooseFilter()
-        }
 
         function chooseTable() {
             option = document.getElementById("select_table").value
@@ -64,47 +51,6 @@
                 document.getElementById("inference_table_filter").style.display = "none";
                 document.getElementById("audio_table_filter").style.display = "";
             }
-        }
-
-        function filterDataByParameter() {
-            let td;
-            
-            const table = document.getElementById(`${option}_table`);
-
-            const filter_element = document.getElementById(`${option}_table_filter`);
-            const input = filter_element.getElementsByTagName("input")[0];
-            const select = filter_element.getElementsByTagName("select")[0];
-            const tr = table.getElementsByTagName("tr");
-            const field = select.options[select.selectedIndex].value;
-
-            const filter = input.value.toUpperCase();
-
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[field];
-                if (td) {
-                  txtValue = td.textContent || td.innerText;
-                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                  } else {
-                    tr[i].style.display = "none";
-                  }
-                }       
-            }
-        }
-
-        function filterByHash(clicked_hash) {
-            index = document.getElementById("inference_table").getElementsByTagName("thead")[0].getElementsByTagName("th").length-1;
-            document.getElementById("inference_table_filter").getElementsByTagName("select")[0].selectedIndex = index;
-            document.getElementById("inference_table_filter").getElementsByTagName("input")[0].value = clicked_hash;
-            filterDataByParameter();
-
-            option='audio';
-            choose();
-
-            index = document.getElementById("audio_table").getElementsByTagName("thead")[0].getElementsByTagName("th").length-1;
-            document.getElementById("audio_table_filter").getElementsByTagName("select")[0].selectedIndex = index;
-            document.getElementById("audio_table_filter").getElementsByTagName("input")[0].value = clicked_hash;
-            filterDataByParameter();
         }
 
         function editRedirect(table, id){
@@ -133,9 +79,12 @@
                     <p>Escolha a tabela</p>
                     <select required id="select_table" onclick="chooseTable()">
                         <option value="funcionario">Funcionário</option>
+                        <option value="atendente">Atendente</option>
+                        <option value="piloto">Piloto</option>
+                        <option value="comissariodebordo">Comissário de Bordo</option>
                         <option value="passageiro">Passageiro</option>
                         <option value="bagagem">Bagagem</option>
-                        <option value="bagagemExtraviada">Bagagem Extraviada</option>
+                        <option value="bagagemextraviada">Bagagem Extraviada</option>
                         <option value="voo">Voo</option>
                         <option value="aviao">Avião</option>
                         <option value="companhia">Companhia Aerea</option>

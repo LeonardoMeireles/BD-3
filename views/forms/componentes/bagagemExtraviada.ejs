@@ -1,0 +1,34 @@
+<div>
+    <div class="hidden">
+        <input type="text" name="entity" value="bagagemextraviada"/>
+    </div>
+
+    <div class="item">
+        <p>Bagagem</p>
+        <input class="hidden" type="text" name="type_bagid" value="int"/>
+        <% if( action === 'add') { %>
+            <select name="bagid" required>
+                <option disabled selected>Selecione Bagagem</option>
+                <% for (bagagem of bagagens) { %>
+                    <option value="<%= bagagem['id'] %>"> <%= `${bagagem['id']} | ${bagagem['cpf']}` %> </option>
+                <% } %>
+            </select>
+        <% } else { %>
+            <input type="text" name="nome" value=<%= companhia.nome %> required/>
+        <% } %>
+    </div>
+    <div class="item">
+        <p>Voo em que a bagagem se encontra</p>
+        <input class="hidden" type="text" name="type_vooid" value="int"/>
+        <% if( action === 'add') { %>
+            <select name="vooid" required>
+                <option disabled selected>Selecione Voo</option>
+                <% for (voo of voos) { %>
+                    <option value="<%= voo['id'] %>"> <%= `${voo['id']} | ${voo['localpartida']} - ${voo['localchegada']}` %> </option>
+                <% } %>
+            </select>
+        <% } else { %>
+            <input type="text" name="nome" value=<%= companhia.nome %> required/>
+        <% } %>
+    </div>
+</div>

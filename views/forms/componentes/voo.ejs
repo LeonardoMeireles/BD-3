@@ -3,65 +3,69 @@
 </div>
 <div class="item">
     <p>Partida</p>
+    <input class="hidden" type="text" name="type_partida" value="timestamp"/>
     <% if( action === 'add') { %>
-        <input type="date" name="dataPartida" required/>
+        <input type="datetime-local" name="partida" required/>
     <% } else { %>
-        <input type="date" name="dataPartida" value=<%= voo.dataPartida %>required/>
+        <input type="datetime-local" name="partida" value=<%= voo.partida %>required/>
     <% } %>
-    <i class="fas fa-calendar-alt"></i>
 </div>
 <div class="item">
     <p>Chegada</p>
+    <input class="hidden" type="text" name="type_chegada" value="timestamp"/>
     <% if( action === 'add') { %>
-        <input type="date" name="dataChegada" required/>
+        <input type="datetime-local" name="chegada" required/>
     <% } else { %>
-        <input type="date" name="dataChegada" value=<%= voo.dataChegada %>required/>
+        <input type="datetime-local" name="chegada" value=<%= voo.chegada %>required/>
     <% } %>
-    <i class="fas fa-calendar-alt"></i>
 </div>
 <div class="item">
     <p>Local de Partida</p>
+    <input class="hidden" type="text" name="type_localpartida" value="string"/>
     <% if( action === 'add') { %>
-        <select name="localPartida" required>
+        <select name="localpartida" required>
             <option disabled selected>Selecione Partida</option>
             <% for (airport of airports) { %>
                 <option value="<%= airport %>"> <%= airport %> </option>
             <% } %>
         </select>
     <% } else { %>
-        <input type="select" name="localPartida" value=<%= voo.localPartida %>required/>
+        <input type="select" name="localpartida" value=<%= voo.localPartida %>required/>
     <% } %>
 </div>
 <div class="item">
     <p>Local de Chegada</p>
+    <input class="hidden" type="text" name="type_localchegada" value="string"/>
     <% if( action === 'add') { %>
-        <select name="localChegada" required>
+        <select name="localchegada" required>
             <option disabled selected>Selecione Chegada</option>
             <% for (airport of airports) { %>
                 <option value="<%= airport %>"> <%= airport %> </option>
             <% } %>
         </select>
     <% } else { %>
-        <input type="select" name="localChegada" value=<%= voo.localChegada %>required/>
+        <input type="select" name="localchegada" value=<%= voo.localChegada %>required/>
     <% } %>
 </div>
 <div class="item">
     <p>Companhia</p>
+    <input class="hidden" type="text" name="type_companhiacnpj" value="string"/>
     <% if( action === 'add') { %>
-        <select type="number" name="cnpjCompanhia" required>
+        <select type="number" name="companhiacnpj" required>
             <option disabled selected>Selecione Companhia</option>
             <% for (companhia of companhias) { %>
                 <option value="<%= companhia['cnpj'] %>"> <%= `${companhia['nome']} | ${companhia['cnpj']}` %> </option>
             <% } %>
         </select>
     <% } else { %>
-        <input type="number" name="cnpjCompanhia" value=<%= voo.cnpjCompanhia %>required/>
+        <input type="number" name="companhiacnpj" value=<%= voo.companhiacnpj %>required/>
     <% } %>
 </div>
 <div class="item">
     <p>Avião utilizado</p>
+    <input class="hidden" type="text" name="type_aviaoid" value="int"/>
     <!-- TODO -->
-    <select required>
+    <select name="aviaoid" required>
         <option disabled selected>Selecione Aviao</option>
         <% for (aviao of avioes) { %>
             <option value="<%= aviao['id'] %>"> <%= `${aviao['id']} | ${aviao['modelo']}` %> </option>
@@ -70,7 +74,8 @@
 </div>
 <div class="item">
     <p>Portão utilizado</p>
-    <select required>
+    <input class="hidden" type="text" name="type_portaoid" value="int"/>
+    <select name="portaoid" required>
         <option disabled selected>Selecione Portao</option>
         <% for (portao of portoes) { %>
             <option value="<%= portao['id'] %>"> <%= portao['id'] %> </option>

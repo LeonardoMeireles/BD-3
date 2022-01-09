@@ -7,13 +7,22 @@ const getHome = (req: Request , res: Response, next: NextFunction) => {
 }
 
 const getTable = async (req: Request , res: Response, next: NextFunction) => {
-    const entities = ['funcionario', 'passageiro', 'bagagem', 'bagagemExtraviada', 'voo', 'aviao', 'companhia']
+    const entities = ['funcionario', 'atendente', 'piloto', 'comissariodebordo', 'passageiro', 'bagagem', 'bagagemextraviada', 'voo', 'aviao', 'companhia']
 
     var dictList = []
 
     for (let entity of entities) {
         const dbres = await client.query(`SELECT * FROM ${entity}`)
-        var keys = Object.keys(dbres.rows[0])
+        var keys = (() => {
+            const fields = dbres.fields
+            var list = []
+
+            for(let field of fields) {
+                list.push(field['name'])
+            }
+
+            return list
+        })()
         console.log(`KEYS\n${keys}`)
 
         dictList.push({
@@ -21,8 +30,10 @@ const getTable = async (req: Request , res: Response, next: NextFunction) => {
             tableContent: (() => {
                 const list = []
     
-                for (let row of dbres.rows) {
-                    list.push(row)
+                if(dbres.rows) {
+                    for (let row of dbres.rows) {
+                        list.push(row)
+                    }
                 }
                 return list
             })()
@@ -45,6 +56,7 @@ const getAdd = async (req: Request , res: Response, next: NextFunction) => {
     const countries = fs.readFileSync('resources/lists/countries').toString().split("\n");
 
     const avioes = (await client.query('SELECT id, modelo FROM aviao')).rows
+    const bagagens = (await client.query('SELECT b.id,b.cpf FROM bagagem b LEFT JOIN bagagemextraviada e ON e.bagid = b.id WHERE e.bagid IS NULL')).rows
     const companhias = (await client.query('SELECT cnpj, nome FROM companhia')).rows
     const passageiros = (await client.query('SELECT cpf, nome FROM passageiro')).rows
     const pilotos = (await client.query('SELECT funccpf FROM piloto')).rows
@@ -57,6 +69,7 @@ const getAdd = async (req: Request , res: Response, next: NextFunction) => {
         action: 'add',
         tabela: req.params.tabela,
         airports: airports,
+        bagagens: bagagens,
         countries: countries,
         avioes: avioes,
         companhias: companhias,
@@ -81,9 +94,99 @@ const getDelete = (req: Request , res: Response, next: NextFunction) => {
     })
 }
 
-const insertItem = (req: Request , res: Response, next: NextFunction) => {
-    console.log(req.body)
-    return
+const insertItem = async (req: Request , res: Response, next: NextFunction) => {
+    const dict = req.body
+    const entity = dict['entity']
+    delete dict["entity"]
+    const types = (() => {
+        var dict_final : any = {}
+        for (let key in dict) {
+            if (key.startsWith("type")) {
+                dict_final[key.substring(5)] = dict[key]
+                delete dict[key]
+            }
+        }
+        return dict_final
+    })()
+    console.log("TYPES ------------")
+    console.log(types)
+
+    var result
+
+    var queryText = `INSERT INTO ${entity}(${buildInsert(dict, types, true)}) VALUES (${buildInsert(dict, types, false)});`
+    console.log(`Query: ${queryText}`)
+    result = await client.query(queryText, (err: any, resIntern: Response) => {
+        if (err) {
+            return res.status(400).render("error", {message: `Houve um erro com a sua requisição:\n\n${err}`})
+        } else {
+            console.log(`Query response: ${resIntern}`)
+        }
+    })
+    
+
+    if (entity === "funcionario") {
+        const cargo = dict['cargo']
+
+        if (cargo === "atendente") {
+            const turno = dict['turno']
+            queryText = `INSERT INTO atendente(turno,funccpf) VALUES ('${turno}','${dict['cpf']}');`
+        } else {
+            queryText = `INSERT INTO ${cargo}(funccpf) VALUES ('${dict['cpf']}');`
+        }
+
+        console.log(`Query: ${queryText}`)
+        result = await client.query(queryText, (err: any, resIntern: Response) => {
+            if (err) {
+                return res.status(400).render("error", {message: `Houve um erro com a sua requisição:\n\n${err}`})
+            } else {
+                console.log(`Query response: ${resIntern}`)
+            }
+        })
+    }
+
+    res.redirect("/table")
+}
+
+function buildInsert(dict: any, types: any, isKey: boolean) {
+    var list
+    if (isKey) {
+        list = Object.keys(dict)
+        console.log("KEYS -------------")
+        console.log(list)
+    } else {
+        list = dict
+        console.log("DICT -------------")
+        console.log(list)
+    }
+
+    var text = ""
+    if (isKey) {
+        for (let i of list) {
+            var type = types[i]
+
+            if (type === "int" || type === "string" || type === "timestamp") {
+                text += `${i},`
+            }
+        }
+    } else {
+        for (let i in list) {
+            var type = types[i]
+
+            switch(type) {
+                case "int":
+                    text += `${list[i]},`
+                    break;
+                case "string":
+                    text += `'${list[i]}',`
+                    break;
+                case "timestamp":
+                    text += `'${list[i]}',`
+                    break;
+            }
+        }  
+    }
+
+    return text.slice(0, -1)
 }
 
 export { getHome, getTable, getFormOptions, getAdd, insertItem }

@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getAdd, getFormOptions, getHome, getTable, insertItem } from '../controllers/homeController'
+import { getAdd, getFormOptions, getHome, getTable, insertItem} from '../controllers/homeController'
 
 const router = Router()
 

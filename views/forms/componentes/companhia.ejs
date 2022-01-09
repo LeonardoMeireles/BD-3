@@ -3,6 +3,7 @@
 </div>
 <div class="item">
     <p>Nome</p>
+    <input class="hidden" type="text" name="type_nome" value="string"/>
     <% if( action === 'add') { %>
         <input type="text" name="nome" required/>
     <% } else { %>
@@ -10,16 +11,18 @@
     <% } %>
 </div>
 <div class="item">
-    <p>CNPJ</p>
+    <p>CNPJ (xx.xxx.xxx/xxxx-xx)</p>
+    <input class="hidden" type="text" name="type_cnpj" value="string"/>
     <% if( action === 'add') { %>
-        <input type="number" name="cnpj" required/>
+        <input type="text" name="cnpj" pattern="\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}" maxlength="18" required/>
     <% } else { %>
-        <input type="number" name="cnpj" value=<%= companhia.cnpj %> required/>
+        <input type="text" name="cnpj" pattern="\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}" maxlength="18" value=<%= companhia.cnpj %> required/>
     <% } %>
 </div>
 <div class="item">
     <p>País de Origem</p>
-    <select required>
+    <input class="hidden" type="text" name="type_paisorigem" value="string"/>
+    <select name="paisorigem" required>
             <option disabled selected>Selecione Origem</option>
         <% for (country of countries) { %>
             <option value="<%= country %>"> <%= country %> </option>
@@ -28,9 +31,10 @@
 </div>
 <div class="item">
     <p>Descrição</p>
+    <input class="hidden" type="text" name="type_descricao" value="string"/>
     <% if( action === 'add') { %>
-        <input type="text" name="nome"/>
+        <input type="text" name="descricao"/>
     <% } else { %>
-        <input type="text" name="nome" value=<%= companhia.descricao %>/>
+        <input type="text" name="descricao" value=<%= companhia.descricao %>/>
     <% } %>
 </div>

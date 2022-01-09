@@ -4,6 +4,7 @@
 <div>
     <div class="item">
         <p>Nome</p>
+        <input class="hidden" type="text" name="type_nome" value="string"/>
         <% if( action === 'add') { %>
             <input type="text" name="nome" required/>
         <% } else { %>
@@ -11,41 +12,46 @@
         <% } %>
     </div>
     <div class="item">
-        <p>CPF</p>
+        <p>CPF (xxx.xxx.xxx-xx)</p>
+        <input class="hidden" type="text" name="type_cpf" value="string"/>
         <% if( action === 'add') { %>
-            <input type="text" name="cpf" required/>
+            <input type="text" name="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" maxlength="14" required/>
         <% } else { %>
-            <input type="text" name="cpf" value=<%= func.cpf %> required/>
+            <input type="text" name="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" maxlength="14" value=<%= func.cpf %> required/>
         <% } %>
     </div>
 </div>
 <div class="item">
-    <p>Data de Nascimento</p>
+    <p>RG (xx.xxx.xxx-x)</p>
+    <input class="hidden" type="text" name="type_rg" value="string"/>
     <% if( action === 'add') { %>
-        <input type="date" name="dataNascimento" required/>
+        <input type="text" name="rg" pattern="\d{2}\.\d{3}\.\d{3}-\d{1}" maxlength="12" required/>
     <% } else { %>
-        <input type="date" name="dataNascimento" value=<%= func.dataNascimento %>required/>
+        <input type="text" name="rg" pattern="\d{2}\.\d{3}\.\d{3}-\d{1}" maxlength="12" value=<%= func.rg %>required/>
+    <% } %>
+</div>
+<div class="item">
+    <p>Data de Nascimento</p>
+    <input class="hidden" type="text" name="type_datanascimento" value="timestamp"/>
+    <% if( action === 'add') { %>
+        <input type="date" name="datanascimento" required/>
+    <% } else { %>
+        <input type="date" name="datanascimento" value=<%= func.datanascimento %>required/>
     <% } %>
     <i class="fas fa-calendar-alt"></i>
 </div>
 <div class="item">
     <p>Telefone</p>
+    <input class="hidden" type="text" name="type_telefone" value="string"/>
     <% if( action === 'add') { %>
-        <input type="text" name="cpf" required/>
+        <input type="text" name="telefone" required/>
     <% } else { %>
-        <input type="text" name="cpf" value=<%= func.cpf %>required/>
-    <% } %>
-</div>
-<div class="item">
-    <p>RG</p>
-    <% if( action === 'add') { %>
-        <input type="text" name="rg" required/>
-    <% } else { %>
-        <input type="text" name="rg" value=<%= func.rg %>required/>
+        <input type="text" name="telefone" value=<%= func.cpf %>required/>
     <% } %>
 </div>
 <div class="item">
     <p>Email</p>
+    <input class="hidden" type="text" name="type_email" value="string"/>
     <% if( action === 'add') { %>
         <input type="text" name="email" required/>
     <% } else { %>
@@ -54,6 +60,7 @@
 </div>
 <div class="question">
     <p><span class="required">Cargo</span></p>
+    <input class="hidden" type="text" name="type_cargo" value="select"/>
     <div class="question-answer">
       <input type="radio" value="atendente" id="radio_1" name="cargo" required/>
       <label for="radio_1" class="radio" onclick="option='atendente'; cargo();"><span>Atendente</span></label>
@@ -66,21 +73,23 @@
 <div id="atendente" style="display: none;">
     <div class="question">
         <p><span class="required">Turno</span></p>
+        <input class="hidden" type="text" name="type_turno" value="string_special"/>
         <div class="question-answer">
-          <input type="radio" value="Matutino" id="radio_4" name="turno" required/>
-          <label for="radio_4" class="radio"><span>Matutino</span></label>
-          <input type="radio" value="Vespertino" id="radio_5" name="turno" required/>
-          <label for="radio_5" class="radio"><span>Vespertino</span></label>
-          <input type="radio" value="Noturno" id="radio_6" name="turno" required/>
-          <label for="radio_6" class="radio"><span>Noturno</span></label>
+          <input checked type="radio" value="Matutino" id="radio_4" name="turno"/>
+          <label for="radio_4" class="radio"><span>matutino</span></label>
+          <input type="radio" value="Vespertino" id="radio_5" name="turno"/>
+          <label for="radio_5" class="radio"><span>vespertino</span></label>
+          <input type="radio" value="Noturno" id="radio_6" name="turno"/>
+          <label for="radio_6" class="radio"><span>noturno</span></label>
         </div>
     </div>
 </div>
 <div class="item">
     <p>Salário</p>
+    <input class="hidden" type="text" name="type_salario" value="int"/>
     <% if( action === 'add') { %>
-        <input type="number" name="salário" required/>
+        <input type="number" name="salario" required/>
     <% } else { %>
-        <input type="number" name="salário" value=<%= func.salario %>required/>
+        <input type="number" name="salario" value=<%= func.salario %>required/>
     <% } %>
 </div>

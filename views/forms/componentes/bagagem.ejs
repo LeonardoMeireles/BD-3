@@ -4,6 +4,7 @@
     </div>
     <div class="item">
         <p>Peso</p>
+        <input class="hidden" type="text" name="type_peso" value="int"/>
         <% if( action === 'add') { %>
             <input type="number" name="peso" required/>
         <% } else { %>
@@ -12,6 +13,7 @@
     </div>
     <div class="item">
         <p>Esteira</p>
+        <input class="hidden" type="text" name="type_esteira" value="int"/>
         <% if( action === 'add') { %>
             <input type="number" name="esteira" required/>
         <% } else { %>
@@ -21,6 +23,7 @@
 </div>
 <div class="item">
     <p>Proprietário</p>
+    <input class="hidden" type="text" name="type_cpf" value="string"/>
     <% if( action === 'add') { %>
         <select name="cpf" required>
             <option disabled selected>Selecione Passageiro</option>
@@ -36,9 +39,9 @@
     <div class="question">
         <p><span class="required">Extraviada</span></p>
         <div class="question-answer">
-        <input type="radio" value="atendente" id="radio_1" required/>
+        <input type="radio" value="sim" id="radio_1" required/>
         <label for="radio_1" class="radio" onclick="option='sim'; extraviada();"><span>Sim</span></label>
-        <input type="radio" value="piloto" id="radio_2" required/>
+        <input type="radio" value="nao" id="radio_2" required/>
         <label for="radio_2" class="radio" onclick="option='nao'; extraviada();"><span>Não</span></label>
         </div>
     </div>
