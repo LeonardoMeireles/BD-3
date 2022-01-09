@@ -1,12 +1,16 @@
 import { Request, Response, NextFunction } from 'express'
-import client from '../utils/database'
+import { client, reconnect } from '../utils/database'
 var fs = require('fs')
 
 const getHome = (req: Request , res: Response, next: NextFunction) => {
+    reconnect()
+    
     res.render('homePage')
 }
 
 const getTable = async (req: Request , res: Response, next: NextFunction) => {
+    reconnect()
+
     const entities = ['funcionario', 'atendente', 'piloto', 'comissariodebordo', 'passageiro', 'bagagem', 'bagagemextraviada', 'voo', 'aviao', 'companhia']
 
     var dictList = []
@@ -48,10 +52,14 @@ const getTable = async (req: Request , res: Response, next: NextFunction) => {
 }
 
 const getFormOptions = (req: Request , res: Response, next: NextFunction) => {
+    reconnect()
+
     res.render('formOptions')
 }
 
 const getAdd = async (req: Request , res: Response, next: NextFunction) => {
+    reconnect()
+
     const airports = fs.readFileSync('resources/lists/airports').toString().split("\n");
     const countries = fs.readFileSync('resources/lists/countries').toString().split("\n");
 
