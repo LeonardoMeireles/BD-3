@@ -15,6 +15,20 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <script>
+        const entities = ['funcionario', 'passageiro', 'bagagem', 'bagagemExtraviada', 'voo', 'aviao', 'companhia']
+        
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        if(!getCookie("table")) {
+            document.cookie = 'table=funcionario'
+        }
+
+        option = getCookie("table")
+
         function dumpTable() {
             if (option === "inference") {
                 location.replace(`${window.location.origin}/dump/inference`);
@@ -29,20 +43,17 @@
         }
 
         function chooseTable() {
-            const audioTab = document.getElementById("audio-tab");
-            const inferenceTab = document.getElementById("inference-tab");
+            option = document.getElementById("select_table").value
 
-            if (option === "inference" && !inferenceTab.className.includes("active")) {
-                inferenceTab.className += " active";
-                audioTab.className = audioTab.className.replace(" active", "");
-                document.getElementById("inference_table").style.display = "";
-                document.getElementById("audio_table").style.display = "none";
-            } else if (option === "audio" && !audioTab.className.includes("active")) {
-                audioTab.className += " active";
-                inferenceTab.className = inferenceTab.className.replace(" active", "");
-                document.getElementById("inference_table").style.display = "none";
-                document.getElementById("audio_table").style.display = "";
+            document.cookie = `table=${option}`
+
+            for (entity of entities) {
+                if (entity != option) {
+                    document.getElementById(`table-${entity}`).style.display = "none";
+                }                                 
             }
+            document.getElementById(`table-${option}`).style.display = "";
+
         }
 
         function chooseFilter() {
@@ -108,7 +119,7 @@
                 <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
                 <a href="/" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Home</a>
                 <a href="/form" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Form</a>
-                <a href="/tabela" class="w3-bar-item w3-button w3-padding-large w3-white">Tabela</a>
+                <a href="/table" class="w3-bar-item w3-button w3-padding-large w3-white">Tabela</a>
             </div>
         
             <!-- Navbar on small screens -->
@@ -119,9 +130,9 @@
         <section class="container">
             <div class="flex-container">
                 <div class="tab">
-                    <p>Filtrar por:</p>
-                    <select required id="tabela">
-                        <option value="funcionário">Funcionário</option>
+                    <p>Escolha a tabela</p>
+                    <select required id="select_table" onclick="chooseTable()">
+                        <option value="funcionario">Funcionário</option>
                         <option value="passageiro">Passageiro</option>
                         <option value="bagagem">Bagagem</option>
                         <option value="bagagemExtraviada">Bagagem Extraviada</option>
@@ -143,7 +154,11 @@
             </div>
         </section>
         <section class="container">
-            <table id="inference_table" class="table-container">
+            <% for (i in entities) { %>
+            <% var tableColumns = dictList[i]['tableColumns'] %>
+            <% var tableContent = dictList[i]['tableContent'] %>
+            
+            <table id="<%= `table-${entities[i]}` %>" class="table-container">
                 <thead>
                     <tr>
                         <% for( let column of tableColumns ) { %>
@@ -154,28 +169,30 @@
                 <tbody>
                     <% if(tableContent) { %>
                         <% for(let content of tableContent) { %>
-                            <tr class="inference-row">
-                                <td class="tableValue"> <%= content.test1 %></td>
-                                <td class="tableValue"> <%= content.test2 %></td>
-                                <td class="tableValue"> <%= content.test3 %></td>
-                                <td class="tableValue"> <%= content.test4 %></td>
-                                <td class="tableValue"> <%= content.test5 %></td>
-                                <td><button class="tableBtn" onclick="editRedirect('test', '123')"><i class="fa fa-edit"></i></button></td>
-                                <td><button class="tableBtn" onclick=""><i class="fa fa-trash"></i></button></td>
+                            <tr class="row">
+                                <% var keys = Object.keys(content) %>
+                                <% for(let i in keys) { %>
+
+                                    <td class="tableValue"> <%= content[keys[i]] %> </td>
+
+                                <% } %>
+                                <!-- <td><button class="tableBtn" onclick="editRedirect('test', '123')"><i class="fa fa-edit"></i></button></td>
+                                <td><button class="tableBtn" onclick=""><i class="fa fa-trash"></i></button></td> -->
                             </tr>
                         <% } %>
                     <% } %>
                 </tbody>
             </table>
+            <% } %>
         </section>
         <script>
-            var option = "inference"
-            document.getElementById("audio_table").style.display = "none";
-            document.getElementById("audio_table_filter").style.display = "none";
-            document.getElementById("inference-tab").className += " active";
-            document.getElementsByClassName('table-container')[0]
-                    .getElementsByTagName('thead')[0]
-                    .getElementsByTagName('th')[0].style.borderRadius = '0'
+            for (entity of entities) {
+                if (entity != option) {
+                    document.getElementById(`table-${entity}`).style.display = "none";
+                }                                   
+            }
+
+            document.getElementById('select_table').value = option;
 
         </script>
     </body>

@@ -1,11 +1,12 @@
 import { Router } from 'express'
-import { getAdd, getFormOptions, getHome, getTabela } from '../controllers/homeController'
+import { getAdd, getFormOptions, getHome, getTable, insertItem } from '../controllers/homeController'
 
 const router = Router()
 
 router.get('/', getHome)
-router.get('/tabela', getTabela)
+router.get('/table', getTable)
 router.get('/form', getFormOptions)
+router.post('/insert', insertItem)
 
 // Forms
 router.get('/adicionar/:tabela', getAdd)

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Research Application Form</title>
+    <title>Insert form</title>
     <link rel="stylesheet" href="/css/form.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -44,7 +44,7 @@
     </div>
       
     <div class="testbox">
-        <form action="/">
+        <form method="POST" action="/insert" onSubmit="return submitForm(this);">
             <header class="background-image">
                 <h1 id="logoName" class="w3-jumbo">Adicionar <%= tabela %></h1>
             </header>
@@ -62,7 +62,7 @@
                 <%- include('./componentes/voo.ejs') %>
             <% } %>
             <div class="btn-block">
-                <button type="submit" href="/">Send Application</button>
+                <button type="submit">Send Application</button>
             </div>
         </form>
     </div>

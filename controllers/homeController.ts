@@ -1,16 +1,37 @@
 import { Request, Response, NextFunction } from 'express'
+import client from '../utils/database'
 
 const getHome = (req: Request , res: Response, next: NextFunction) => {
     res.render('homePage')
 }
 
-const getTabela = (req: Request , res: Response, next: NextFunction) => {
-    res.render('tabela', {
-        tableColumns: ['Test1', 'Test2', 'Test3', 'Test4', 'Test5'],
-        tableContent: [
-            {'test1': 'content1', 'test2': 'content2', 'test3': 'content3', 'test4': 'content4', 'test5': 'content5',},
-            {'test1': 'content1', 'test2': 'content2', 'test3': 'content3', 'test4': 'content4', 'test5': 'content5',},
-        ]
+const getTable = async (req: Request , res: Response, next: NextFunction) => {
+    const entities = ['funcionario', 'passageiro', 'bagagem', 'bagagemExtraviada', 'voo', 'aviao', 'companhia']
+
+    var dictList = []
+
+    for (let entity of entities) {
+        const dbres = await client.query(`SELECT * FROM ${entity}`)
+        var keys = Object.keys(dbres.rows[0])
+        console.log(`KEYS\n${keys}`)
+
+        dictList.push({
+            tableColumns: keys,
+            tableContent: (() => {
+                const list = []
+    
+                for (let row of dbres.rows) {
+                    list.push(row)
+                }
+                return list
+            })()
+        })
+        
+    }
+ 
+    res.render('table', {
+    dictList,
+    entities
     })
 }
 
@@ -37,4 +58,9 @@ const getDelete = (req: Request , res: Response, next: NextFunction) => {
     })
 }
 
-export { getHome, getTabela, getFormOptions, getAdd }
+const insertItem = (req: Request , res: Response, next: NextFunction) => {
+    console.log(req.body)
+    return
+}
+
+export { getHome, getTable, getFormOptions, getAdd, insertItem }
