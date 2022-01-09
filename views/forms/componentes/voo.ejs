@@ -19,23 +19,38 @@
 <div class="item">
     <p>Local de Partida</p>
     <% if( action === 'add') { %>
-        <input type="number" name="localPartida" required/>
+        <select name="localPartida" required>
+            <option disabled selected>Selecione Partida</option>
+            <% for (airport of airports) { %>
+                <option value="<%= airport %>"> <%= airport %> </option>
+            <% } %>
+        </select>
     <% } else { %>
-        <input type="number" name="localPartida" value=<%= voo.localPartida %>required/>
+        <input type="select" name="localPartida" value=<%= voo.localPartida %>required/>
     <% } %>
 </div>
 <div class="item">
     <p>Local de Chegada</p>
     <% if( action === 'add') { %>
-        <input type="number" name="localChegada" required/>
+        <select name="localChegada" required>
+            <option disabled selected>Selecione Chegada</option>
+            <% for (airport of airports) { %>
+                <option value="<%= airport %>"> <%= airport %> </option>
+            <% } %>
+        </select>
     <% } else { %>
-        <input type="number" name="localChegada" value=<%= voo.localChegada %>required/>
+        <input type="select" name="localChegada" value=<%= voo.localChegada %>required/>
     <% } %>
 </div>
 <div class="item">
-    <p>CNPJ Companhia</p>
+    <p>Companhia</p>
     <% if( action === 'add') { %>
-        <input type="number" name="cnpjCompanhia" required/>
+        <select type="number" name="cnpjCompanhia" required>
+            <option disabled selected>Selecione Companhia</option>
+            <% for (companhia of companhias) { %>
+                <option value="<%= companhia['cnpj'] %>"> <%= `${companhia['nome']} | ${companhia['cnpj']}` %> </option>
+            <% } %>
+        </select>
     <% } else { %>
         <input type="number" name="cnpjCompanhia" value=<%= voo.cnpjCompanhia %>required/>
     <% } %>
@@ -44,32 +59,18 @@
     <p>Avião utilizado</p>
     <!-- TODO -->
     <select required>
-        <option value="">Selecione Avião</option>
-        <option value="1">Avião 1</option>
-        <option value="1">Avião 2</option>
-        <option value="1">Avião 3</option>
-        <option value="1">Avião 4</option>
+        <option disabled selected>Selecione Aviao</option>
+        <% for (aviao of avioes) { %>
+            <option value="<%= aviao['id'] %>"> <%= `${aviao['id']} | ${aviao['modelo']}` %> </option>
+        <% } %>
       </select>
 </div>
 <div class="item">
     <p>Portão utilizado</p>
-    <!-- TODO -->
     <select required>
-        <option value="">Selecione Portão</option>
-        <option value="1">Portão 1</option>
-        <option value="1">Portão 2</option>
-        <option value="1">Portão 3</option>
-        <option value="1">Portão 4</option>
-      </select>
-</div>
-<div class="item">
-    <p>Companhia</p>
-    <!-- TODO -->
-    <select required>
-        <option value="">Selecione Companhia</option>
-        <option value="1">Companhia 1</option>
-        <option value="1">Companhia 2</option>
-        <option value="1">Companhia 3</option>
-        <option value="1">Companhia 4</option>
+        <option disabled selected>Selecione Portao</option>
+        <% for (portao of portoes) { %>
+            <option value="<%= portao['id'] %>"> <%= portao['id'] %> </option>
+        <% } %>
       </select>
 </div>

@@ -17,15 +17,11 @@
 <div class="item">
     <p>País de Origem</p>
     <select required>
-        <option value="">País</option>
-        <option value="1">Alemanha</option>
-        <option value="2">Austrália</option>
-        <option value="3">Armenia</option>
-        <option value="4">Brazil</option>
-        <option value="5">Canada</option>
-        <option value="6">Estados Unidos</option>
-        <option value="7">França</option>
-      </select>
+            <option disabled selected>Selecione Origem</option>
+        <% for (country of countries) { %>
+            <option value="<%= country %>"> <%= country %> </option>
+        <% } %>
+    </select>
 </div>
 <div class="item">
     <p>Descrição</p>
