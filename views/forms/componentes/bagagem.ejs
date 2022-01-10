@@ -32,28 +32,10 @@
             <% } %>
         </select>
     <% } else { %>
-        <input type="text" name="cpf" value=<%= bagagem.cpf %> required/>
-    <% } %>
-</div>
-<% if( action === 'add') { %>
-    <div class="question">
-        <p><span class="required">Extraviada</span></p>
-        <div class="question-answer">
-        <input type="radio" value="sim" id="radio_1" required/>
-        <label for="radio_1" class="radio" onclick="option='sim'; extraviada();"><span>Sim</span></label>
-        <input type="radio" value="nao" id="radio_2" required/>
-        <label for="radio_2" class="radio" onclick="option='nao'; extraviada();"><span>Não</span></label>
-        </div>
-    </div>
-<% } %>
-<div id="extraviada" style="display: none;">
-    <div class="item">
-        <p>Voo em que a bagagem está</p>
-        <select name="voo" required>
-            <option disabled selected>Selecione Voo</option>
-            <% for (voo of voos) { %>
-                <option value="<%= voo['id'] %>"> <%= `${voo['id']} | ${voo['localpartida']} - ${voo['localchegada']}` %> </option>
+        <select name="cpf" required>
+            <option disabled selected>Selecione Passageiro</option>
+            <% for (passageiro of passageiros) { %>
+                <option value="<%= passageiro['cpf'] %>"> <%= `${passageiro['nome']} | ${passageiro['cpf']}` %> </option>
             <% } %>
         </select>
-    </div>
-</div>
+    <% } %>

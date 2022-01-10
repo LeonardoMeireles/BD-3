@@ -8,14 +8,22 @@ const DB = process.env.POSTGRES_DATABASE
 const URL = process.env.POSTGRES_URL
 const PORT = process.env.POSTGRES_PORT
 
+var client : any
+if (process.env.DATABASE_URL) {
+  const URI = process.env.DATABASE_URL
 
-const client = new Client({
+  client = new Client({
+    URI,
+  })
+} else {
+  client = new Client({
     user: `${USER}`,
     host: `${URL}`,
     database: `${DB}`,
     password: `${PASS}`,
     port: `${PORT}`,
   })
+}
 
 async function connectDatabase() {
     await client.connect()
