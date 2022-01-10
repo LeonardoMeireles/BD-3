@@ -23,7 +23,6 @@ const getTable = async (req: Request , res: Response, next: NextFunction) => {
 
             return list
         })()
-        console.log(`KEYS\n${keys}`)
 
         dictList.push({
             tableColumns: keys,

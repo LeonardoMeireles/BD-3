@@ -2,16 +2,19 @@ import { url } from "inspector"
 
 const { Client } = require('pg')
 
+const USER = process.env.POSTGRES_USER
 const PASS = process.env.POSTGRES_PASSWORD
+const DB = process.env.POSTGRES_DATABASE
 const URL = process.env.POSTGRES_URL
+const PORT = process.env.POSTGRES_PORT
 
 
 const client = new Client({
-    user: 'postgres',
+    user: `${USER}`,
     host: `${URL}`,
-    database: 'postgres',
+    database: `${DB}`,
     password: `${PASS}`,
-    port: 5432,
+    port: `${PORT}`,
   })
 
 async function connectDatabase() {
