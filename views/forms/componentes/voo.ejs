@@ -1,5 +1,9 @@
 <div class="hidden">
     <input type="text" name="entity" value="voo"/>
+    <% if (key && key_value) { %>
+        <input type="text" name="key" value="<%= key %>"/>
+        <input type="text" name="key_value" value="<%= key_value %>"/>
+    <% } %>
 </div>
 <div class="item">
     <p>Partida</p>
@@ -7,7 +11,7 @@
     <% if( action === 'add') { %>
         <input type="datetime-local" name="partida" required/>
     <% } else { %>
-        <input type="datetime-local" name="partida" value=<%= voo.partida %>required/>
+        <input type="datetime-local" name="partida" value=<%= row['partida'] %>required/>
     <% } %>
 </div>
 <div class="item">
@@ -16,7 +20,7 @@
     <% if( action === 'add') { %>
         <input type="datetime-local" name="chegada" required/>
     <% } else { %>
-        <input type="datetime-local" name="chegada" value=<%= voo.chegada %>required/>
+        <input type="datetime-local" name="chegada" value=<%= row['chegada'] %>required/>
     <% } %>
 </div>
 <div class="item">
@@ -30,7 +34,7 @@
             <% } %>
         </select>
     <% } else { %>
-        <input type="select" name="localpartida" value=<%= voo.localPartida %>required/>
+        <input type="select" name="localpartida" value=<%= row['localPartida'] %>required/>
     <% } %>
 </div>
 <div class="item">
@@ -44,7 +48,7 @@
             <% } %>
         </select>
     <% } else { %>
-        <input type="select" name="localchegada" value=<%= voo.localChegada %>required/>
+        <input type="select" name="localchegada" value=<%= row['localChegada'] %>required/>
     <% } %>
 </div>
 <div class="item">
@@ -58,7 +62,7 @@
             <% } %>
         </select>
     <% } else { %>
-        <input type="number" name="companhiacnpj" value=<%= voo.companhiacnpj %>required/>
+        <input type="number" name="companhiacnpj" value=<%= row['companhiacnpj'] %>required/>
     <% } %>
 </div>
 <div class="item">

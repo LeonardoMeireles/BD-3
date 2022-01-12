@@ -1,148 +1,289 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/css/reset.css">
-        <link rel="stylesheet" href="/css/table.css">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Air Trava - Tabela</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <script>
-        const entities = ['funcionario', 'atendente', 'piloto', 'comissariodebordo', 'passageiro', 'bagagem', 'bagagemextraviada', 'voo', 'aviao', 'companhia']
-        
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-        }
 
-        if(!getCookie("table")) {
-            document.cookie = 'table=funcionario'
-        }
+<head>
+    <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Air Trava - Tabela</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<script>
+    const entities = ['funcionario', 'atendente', 'piloto', 'comissariodebordo', 'passageiro', 'bagagem', 'bagagemextraviada', 'voo', 'aviao', 'companhia']
 
-        option = getCookie("table")
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
 
-        function chooseTable() {
-            option = document.getElementById("select_table").value
+    if (!getCookie("table")) {
+        document.cookie = 'table=funcionario'
+    }
 
-            document.cookie = `table=${option}`
+    option = getCookie("table")
 
-            for (entity of entities) {
-                if (entity != option) {
-                    document.getElementById(`table-${entity}`).style.display = "none";
-                }                                 
-            }
-            document.getElementById(`table-${option}`).style.display = "";
+    function chooseTable() {
+        option = document.getElementById("select_table").value
 
-        }
+        document.cookie = `table=${option}`
 
-        function chooseFilter() {
-            if (option === "inference") {
-                document.getElementById("inference_table_filter").style.display = "";
-                document.getElementById("audio_table_filter").style.display = "none";
-            } else {
-                document.getElementById("inference_table_filter").style.display = "none";
-                document.getElementById("audio_table_filter").style.display = "";
+        for (entity of entities) {
+            if (entity != option) {
+                document.getElementById(`table-${entity}`).style.display = "none";
+                document.getElementById(`filter-${entity}`).style.display = "none";
+                document.getElementById(`select-${entity}`).style.display = "none";
             }
         }
+        document.getElementById(`table-${option}`).style.display = "";
+        document.getElementById(`filter-${option}`).style.display = "";
+        document.getElementById(`select-${option}`).style.display = "";
 
-        function editRedirect(table, id){
-            location.replace(`/update/${table}/${id}`);
+        if (!(option == 'atendente' || option == 'piloto' || option == 'comissariodebordo')) {
+            document.getElementById('addButton').style.display = "";
+        } else {
+            document.getElementById('addButton').style.display = "none";
         }
 
-    </script>
-    <body>
-        <!-- Navbar -->
-        <div class="w3-top">
-            <div class="w3-bar w3-blue w3-card w3-left-align w3-large">
-                <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-                <a href="/" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Home</a>
-                <a href="/form" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Form</a>
-                <a href="/table" class="w3-bar-item w3-button w3-padding-large w3-white">Tabela</a>
+    }
+
+    function filterDataByParameter() {
+        let td;
+
+        const table = document.getElementById(`table-${option}`);
+
+        const input = document.getElementById(`filter-${option}`);
+        const select = document.getElementById(`select-${option}`);
+        const tr = table.getElementsByTagName("tr");
+        const field = select.selectedIndex;
+
+        const filter = input.value.toUpperCase();
+
+        console.log(field, filter);
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[field];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function add() {
+        location.replace(`/add/${option}`)
+    }
+
+    async function redirectEditDelete(action, table, keys) {
+        keys = JSON.parse(keys)
+        console.log(keys);
+        let key = '';
+        let key_value = '';
+        let type = '';
+
+        switch (table) {
+            case ('aviao'):
+                key_value = keys['id'];
+                key = 'id';
+                type = 'int';
+                break;
+
+            case ('bagagem'):
+                key_value = keys['id'];
+                key = 'id';
+                type = 'int';
+                break;
+
+            case ('bagagemextraviada'):
+                key_value = keys['bagid'];
+                key = 'bagid';
+                type = 'int';
+                break;
+
+            case ('companhia'):
+                key_value = keys['cnpj'];
+                key = 'cnpj';
+                type = 'string';
+                break;
+
+            case ('funcionario'):
+                key_value = keys['cpf'];
+                key = 'cpf';
+                type = 'string';
+                break;
+
+            case ('atendente'):
+                key_value = keys['funccpf'];
+                key = 'funccpf';
+                type = 'string';
+                break;
+
+            case ('piloto'):
+                key_value = keys['funccpf'];
+                key = 'funccpf';
+                type = 'string';
+                break;
+
+            case ('comissariodebordo'):
+                key_value = keys['funccpf'];
+                key = 'funccpf';
+                type = 'string';
+                break;
+
+            case ('passageiro'):
+                key_value = keys['cpf'];
+                key = 'cpf';
+                type = 'string';
+                break;
+
+            case ('voo'):
+                key_value = keys['id'];
+                key = 'id';
+                type = 'int';
+                break;
+        }
+
+        let text = `Tem certeza que deseja deletar ${table} de ${key} igual a ${key_value}?`
+
+        if (action == 'delete' && confirm(text) == false) {
+            return
+        }
+
+        location.replace(`/${action}/${table}/${encodeURIComponent(key_value)}/${key}/${type}`);
+    }
+
+</script>
+
+<body>
+    <!-- Navbar -->
+    <div class="w3-top">
+        <div class="w3-bar w3-blue w3-card w3-left-align w3-large">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
+                href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i
+                    class="fa fa-bars"></i></a>
+            <a href="/" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Home</a>
+            <a href="/table" class="w3-bar-item w3-button w3-padding-large w3-white">Tabela</a>
+        </div>
+
+        <!-- Navbar on small screens -->
+        <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+            <a href="/" class="w3-bar-item w3-button w3-padding-large">Home</a>
+        </div>
+    </div>
+    <section class="container">
+        <div class="flex-container">
+            <div class="tab">
+                <p>Escolha a tabela</p>
+                <select required id="select_table" onclick="chooseTable()">
+                    <option value="funcionario">Funcionário</option>
+                    <option value="atendente">Atendente</option>
+                    <option value="piloto">Piloto</option>
+                    <option value="comissariodebordo">Comissário de Bordo</option>
+                    <option value="passageiro">Passageiro</option>
+                    <option value="bagagem">Bagagem</option>
+                    <option value="bagagemextraviada">Bagagem Extraviada</option>
+                    <option value="voo">Voo</option>
+                    <option value="aviao">Avião</option>
+                    <option value="companhia">Companhia Aerea</option>
+                </select>
             </div>
-        
-            <!-- Navbar on small screens -->
-            <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-                <a href="/" class="w3-bar-item w3-button w3-padding-large">Home</a>
+            <div class="spira-title">
+                <h1 id="title">Tabela Air Trava</h1>
+                <h2>Gerenciando o seu aeroporto</h2>
+            </div>
+            <div>
+                <button id="addButton" onclick="add()" class="button"
+                    style="vertical-align:middle; display: none;"><span>Inserir</span></button>
+            </div>
+            <div>
+
             </div>
         </div>
-        <section class="container">
-            <div class="flex-container">
-                <div class="tab">
-                    <p>Escolha a tabela</p>
-                    <select required id="select_table" onclick="chooseTable()">
-                        <option value="funcionario">Funcionário</option>
-                        <option value="atendente">Atendente</option>
-                        <option value="piloto">Piloto</option>
-                        <option value="comissariodebordo">Comissário de Bordo</option>
-                        <option value="passageiro">Passageiro</option>
-                        <option value="bagagem">Bagagem</option>
-                        <option value="bagagemextraviada">Bagagem Extraviada</option>
-                        <option value="voo">Voo</option>
-                        <option value="aviao">Avião</option>
-                        <option value="companhia">Companhia Aerea</option>
-                    </select>
-                </div>
-                <div class="spira-title">
-                    <h1 id="title">Tabela Air Trava</h1>
-                    <h2>Agilizando a sua viagem</h2>
-                </div>
-                <div>
-                    <!-- <button onclick="" class="button" style="vertical-align:middle"><span>Baixar CSV </span></button> -->
-                </div>
-                <div>
-                    
-                </div>
-            </div>
-        </section>
-        <section class="container">
-            <% for (i in entities) { %>
-            <% var tableColumns = dictList[i]['tableColumns'] %>
-            <% var tableContent = dictList[i]['tableContent'] %>
-            
-            <table id="<%= `table-${entities[i]}` %>" class="table-container">
-                <thead>
-                    <tr>
-                        <% for( let column of tableColumns ) { %>
-                            <th><h1 class="variableTitle"> <%= column %> </h1></th>
-                        <% } %>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% if(tableContent) { %>
-                        <% for(let content of tableContent) { %>
-                            <tr class="row">
-                                <% var keys = Object.keys(content) %>
-                                <% for(let i in keys) { %>
+    </section>
+    <section class="container">
+        <% for (i in entities) { %>
+            <% let tabela=entities[i] %>
+                <% let tableColumns=dictList[i]['tableColumns'] %>
+                    <% let tableContent=dictList[i]['tableContent'] %>
 
-                                    <td class="tableValue"> <%= content[keys[i]] %> </td>
+                        <table id="<%= `table-${tabela}` %>" class="table-container" style="display: none;">
+                            <input onkeyup="filterDataByParameter()" id="<%= `filter-${tabela}` %>"
+                                placeholder="Filtrar por" style="display: none;">
+                            <select onclick="filterDataByParameter()" id="<%= `select-${tabela}` %>"
+                                style="display: none;">
+                                <% if(tableContent) { %>
+                                    <% let keys=Object.keys(tableContent[0]) %>
+                                        <% for (key of keys) { %>
+                                            <option value="<%= key %>">
+                                                <%= key %>
+                                            </option>
+                                            <% } %>
+                                                <% } %>
+                            </select>
+                            <thead>
+                                <tr>
+                                    <% for( let column of tableColumns ) { %>
+                                        <th>
+                                            <h1 class="variableTitle">
+                                                <%= column %>
+                                            </h1>
+                                        </th>
+                                        <% } %>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(tableContent) { %>
+                                    <% for(let content of tableContent) { %>
+                                        <tr class="row">
+                                            <% var keys=Object.keys(content) %>
+                                                <% for(let i in keys) { %>
 
-                                <% } %>
-                                <!-- <td><button class="tableBtn" onclick="editRedirect('test', '123')"><i class="fa fa-edit"></i></button></td>
-                                <td><button class="tableBtn" onclick=""><i class="fa fa-trash"></i></button></td> -->
-                            </tr>
+                                                    <td class="tableValue">
+                                                        <%= content[keys[i]] %>
+                                                    </td>
+
+                                                    <% } %>
+                                                        <% if (!(tabela=='atendente' || tabela=='piloto' ||
+                                                            tabela=='comissariodebordo' )) { %>
+                                                            <td><button class="tableBtn"
+                                                                    onclick="redirectEditDelete('update', '<%= entities[i] %>', '<%= JSON.stringify(content) %>')"><i
+                                                                        class="fa fa-edit"></i></button></td>
+                                                            <% } %>
+                                                                <td><button class="tableBtn"
+                                                                        onclick="redirectEditDelete('delete', '<%= entities[i] %>', '<%= JSON.stringify(content) %>')"><i
+                                                                            class="fa fa-trash"></i></button></td>
+                                        </tr>
+                                        <% } %>
+                                            <% } %>
+                            </tbody>
+                        </table>
                         <% } %>
-                    <% } %>
-                </tbody>
-            </table>
-            <% } %>
-        </section>
-        <script>
-            for (entity of entities) {
-                if (entity != option) {
-                    document.getElementById(`table-${entity}`).style.display = "none";
-                }                                   
+    </section>
+    <script>
+        for (entity of entities) {
+            if (entity == option) {
+                document.getElementById(`table-${entity}`).style.display = "";
+                document.getElementById(`filter-${entity}`).style.display = "";
+                document.getElementById(`select-${entity}`).style.display = "";
             }
+        }
 
-            document.getElementById('select_table').value = option;
+        document.getElementById('select_table').value = option;
 
-        </script>
-    </body>
+        chooseTable()
+
+    </script>
+</body>
+
 </html>

@@ -89,6 +89,13 @@
    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.3);
  }
  
+ .tableValue {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+ }
+
  .container {
    margin: 0 auto;
    width: 1140px;
@@ -98,7 +105,6 @@
    text-align: left;
    overflow: visible;
    word-wrap: normal;
-   text-overflow: ellipsis;
    margin: 0 auto;
    margin-bottom: 2%;
    display: table;
@@ -142,6 +148,7 @@
  }
  
  .table-container .tableValue, .table-container th {
+   max-width: 200px;
    padding: 0 20px;
    padding-bottom: 1%;
    padding-top: 1%;
@@ -243,7 +250,7 @@
  .button {
      display: inline-block;
      border-radius: 4px;
-     background: var(--light-green);
+     background: var(--terceary);
      border: 1px;
      border-radius: 0.25rem;
      border-color: #dc3545;
@@ -266,7 +273,7 @@
  
  .button span:after {
      font-family: FontAwesome;
-     content: "\f0ab";
+     content: "\f055";
      position: absolute;
      opacity: 0;
      top: 1px;
@@ -275,7 +282,7 @@
  }
  
  .button:hover {
-     background-color: var(--dark-green);
+     background-color: var(--secondary);
  }
  
  .button:hover span {

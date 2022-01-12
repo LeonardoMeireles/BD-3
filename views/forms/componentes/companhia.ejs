@@ -1,5 +1,9 @@
 <div class="hidden">
     <input type="text" name="entity" value="companhia"/>
+    <% if (key && key_value) { %>
+        <input type="text" name="key" value="<%= key %>"/>
+        <input type="text" name="key_value" value="<%= key_value %>"/>
+    <% } %>
 </div>
 <div class="item">
     <p>Nome</p>
@@ -7,7 +11,7 @@
     <% if( action === 'add') { %>
         <input type="text" name="nome" required/>
     <% } else { %>
-        <input type="text" name="nome" value=<%= companhia.nome %> required/>
+        <input type="text" name="nome" value="<%= row['nome'] %>" required/>
     <% } %>
 </div>
 <div class="item">
@@ -16,16 +20,27 @@
     <% if( action === 'add') { %>
         <input type="text" name="cnpj" pattern="\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}" maxlength="18" required/>
     <% } else { %>
-        <input type="text" name="cnpj" pattern="\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}" maxlength="18" value=<%= companhia.cnpj %> required/>
+        <input type="text" name="cnpj" pattern="\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}" maxlength="18" value="<%= row['cnpj'] %>" disabled required/>
     <% } %>
 </div>
 <div class="item">
     <p>País de Origem</p>
     <input class="hidden" type="text" name="type_paisorigem" value="string"/>
     <select name="paisorigem" required>
+        <% if( action === 'add') { %>
             <option disabled selected>Selecione Origem</option>
-        <% for (country of countries) { %>
-            <option value="<%= country %>"> <%= country %> </option>
+            <% for (country of countries) { %>
+                <option value="<%= country %>"> <%= country %> </option>
+            <% } %>
+        <% } else { %>
+            <option disabled>Selecione Origem</option>
+            <% for (country of countries) { %>
+                <% if(country == row['paisorigem']) { %>
+                    <option selected value="<%= country %>"> <%= country %> </option>
+                <% } else { %>
+                    <option value="<%= country %>"> <%= country %> </option>
+                <% } %>
+            <% } %>
         <% } %>
     </select>
 </div>
@@ -35,6 +50,6 @@
     <% if( action === 'add') { %>
         <input type="text" name="descricao"/>
     <% } else { %>
-        <input type="text" name="descricao" value=<%= companhia.descricao %>/>
+        <input type="text" name="descricao" value="<%= row['descricao'] %>"/>
     <% } %>
 </div>

@@ -1,30 +1,34 @@
 <div>
     <div class="hidden">
         <input type="text" name="entity" value="bagagem"/>
+        <% if (key && key_value) { %>
+            <input type="text" name="key" value="<%= key %>"/>
+            <input type="text" name="key_value" value="<%= key_value %>"/>
+        <% } %>
     </div>
     <div class="item">
         <p>Peso</p>
         <input class="hidden" type="text" name="type_peso" value="int"/>
-        <% if( action === 'add') { %>
+        <% if( action == 'add') { %>
             <input type="number" name="peso" required/>
         <% } else { %>
-            <input type="number" name="peso" value="<%= bagagem.peso %>" required/>
+            <input type="number" name="peso" value="<%= row['peso'] %>" required/>
         <% } %>
     </div>
     <div class="item">
         <p>Esteira</p>
         <input class="hidden" type="text" name="type_esteira" value="int"/>
-        <% if( action === 'add') { %>
+        <% if( action == 'add') { %>
             <input type="number" name="esteira" required/>
         <% } else { %>
-            <input type="number" name="esteira" value=<%= bagagem.esteira %>required/>
+            <input type="number" name="esteira" value="<%= row['esteira']  %>" required/>
         <% } %>
     </div>
 </div>
 <div class="item">
     <p>Proprietário</p>
     <input class="hidden" type="text" name="type_cpf" value="string"/>
-    <% if( action === 'add') { %>
+    <% if( action == 'add') { %>
         <select name="cpf" required>
             <option disabled selected>Selecione Passageiro</option>
             <% for (passageiro of passageiros) { %>
@@ -35,7 +39,11 @@
         <select name="cpf" required>
             <option disabled selected>Selecione Passageiro</option>
             <% for (passageiro of passageiros) { %>
-                <option value="<%= passageiro['cpf'] %>"> <%= `${passageiro['nome']} | ${passageiro['cpf']}` %> </option>
+                <% if(passageiro['cpf'] == row['cpf']) { %>
+                    <option selected value="<%= passageiro['cpf'] %>"> <%= `${passageiro['nome']} |  ${passageiro['cpf']}` %> </option>
+                <% } else { %>
+                    <option value="<%= passageiro['cpf'] %>"> <%= `${passageiro['nome']} | ${passageiro['cpf']}` %> </option>
+                <% } %>
             <% } %>
         </select>
     <% } %>

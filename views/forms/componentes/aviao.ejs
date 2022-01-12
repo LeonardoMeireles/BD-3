@@ -1,5 +1,9 @@
 <div class="hidden">
     <input type="text" name="entity" value="aviao"/>
+    <% if (key && key_value) { %>
+        <input type="text" name="key" value="<%= key %>"/>
+        <input type="text" name="key_value" value="<%= key_value %>"/>
+    <% } %>
 </div>
 <div class="item">
     <p>Capacidade</p>
@@ -7,7 +11,7 @@
     <% if( action === 'add') { %>
         <input type="number" name="capacidade" required/>
     <% } else { %>
-        <input type="number" name="capacidade"  value=<%= aviao.capacidade %> required/>
+        <input type="number" name="capacidade"  value="<%= row['capacidade']%>" required/>
     <% } %>
 </div>
 <div class="item">
@@ -16,6 +20,6 @@
     <% if( action === 'add') { %>
         <input type="text" name="modelo" required/>
     <% } else { %>
-        <input type="text" name="modelo" value=<%= aviao.modelo %> required/>
+        <input type="text" name="modelo" value="<%= row['modelo']%>" required/>
     <% } %>
 </div>

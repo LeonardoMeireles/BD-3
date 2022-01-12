@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Insert form</title>
+    <% if (action == 'add') { %>
+        <title>Air-Trava | Inserir <%= tabela %></title>
+    <% } else { %>
+        <title>Air-Trava | Atualizar <%= tabela %></title>
+    <% } %>
     <link rel="stylesheet" href="/css/form.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -11,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <script>
+
     function extraviada() {
         if (option === "sim") {
             document.getElementById("extraviada").style.display = "";
@@ -39,7 +44,6 @@
         <div class="w3-bar w3-blue w3-card w3-left-align w3-large navbar">
             <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
             <a href="/" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Home</a>
-            <a href="/form" class="w3-bar-item w3-button w3-padding-large w3-white">Form</a>
             <a href="/table" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Tabela</a>
         </div>
         
@@ -50,15 +54,20 @@
     </div>
       
     <div class="testbox">
-        <form method="POST" action="/insert" onSubmit="return submitForm(this);">
+            <form method="POST" action="<%= `/${action}` %>">
+
             <header class="background-image">
-                <h1 id="logoName" class="w3-jumbo">Adicionar <%= tabela %></h1>
+                <% if (action == 'add') { %>
+                    <h1 id="logoName" class="w3-jumbo">Adicionar <%= tabela %></h1>
+                <% } else { %>
+                    <h1 id="logoName" class="w3-jumbo">Atualizar <%= tabela %></h1>
+                <% } %>
             </header>
             <% if(tabela === 'aviao') { %>
                 <%- include('./componentes/aviao.ejs') %>
             <% } else if(tabela === 'companhia') { %>
                 <%- include('./componentes/companhia.ejs') %>
-            <% } else if(tabela === 'funcionário') { %>
+            <% } else if(tabela === 'funcionario') { %>
                 <%- include('./componentes/funcionario.ejs') %>
             <% } else if(tabela === 'bagagem') { %>
                 <%- include('./componentes/bagagem.ejs') %>
@@ -70,7 +79,11 @@
                 <%- include('./componentes/voo.ejs') %>
             <% } %>
             <div class="btn-block">
-                <button type="submit" name="submitButton">Inserir</button>
+                <% if (action == 'add') { %>
+                    <button type="submit" name="submitButton">Inserir</button>
+                <% } else { %>
+                    <button type="submit" name="submitButton">Atualizar</button>
+                <% } %>
             </div>
         </form>
     </div>

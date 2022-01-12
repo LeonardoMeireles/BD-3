@@ -1,6 +1,10 @@
 <div>
     <div class="hidden">
         <input type="text" name="entity" value="bagagemextraviada"/>
+        <% if (key && key_value) { %>
+            <input type="text" name="key" value="<%= key %>"/>
+            <input type="text" name="key_value" value="<%= key_value %>"/>
+        <% } %>
     </div>
 
     <div class="item">
@@ -14,7 +18,7 @@
                 <% } %>
             </select>
         <% } else { %>
-            <input type="text" name="nome" value=<%= companhia.nome %> required/>
+            <input type="number" name="bagid" value="<%= row['bagid'] %>" disabled required/>
         <% } %>
     </div>
     <div class="item">
@@ -28,7 +32,16 @@
                 <% } %>
             </select>
         <% } else { %>
-            <input type="text" name="nome" value=<%= companhia.nome %> required/>
+            <select name="vooid" required>
+                <option disabled selected>Selecione Voo</option>
+                <% for (voo of voos) { %>
+                    <% if(voo['id'] == row['vooid']) { %>
+                        <option selected value="<%= voo['id'] %>"> <%= `${voo['id']} | ${voo['localpartida']} - ${voo['localchegada']}` %> </option>    
+                    <% } else { %>
+                        <option value="<%= voo['id'] %>"> <%= `${voo['id']} | ${voo['localpartida']} - ${voo['localchegada']}` %> </option>
+                    <% } %>
+                <% } %>
+            </select>
         <% } %>
     </div>
 </div>

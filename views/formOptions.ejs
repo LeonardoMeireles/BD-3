@@ -14,7 +14,7 @@
       function executeAction(){
         const tabela = document.getElementById('tabela').value;
         document.getElementById('tabela').value = "";
-        window.location = 'adicionar/' +tabela;
+        window.location = 'add/' +tabela;
       };
   </script>
   <body>
@@ -43,7 +43,7 @@
                 <div class="item">
                     <select required id="tabela" onchange=executeAction()>
                         <option value="" disabled selected>Selecione o formulário</option>
-                        <option value="funcionário">Funcionário</option>
+                        <option value="funcionario">Funcionário</option>
                         <option value="passageiro">Passageiro</option>
                         <option value="bagagem">Bagagem</option>
                         <option value="bagagemextraviada">Bagagem Extraviada</option>
